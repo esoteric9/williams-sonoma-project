@@ -9,6 +9,8 @@ package com.amunteanu.helpers;
 
 import java.util.*;
 
+import com.amunteanu.helpers.exceptions.*;
+
 /**
  * AppBasics //ADDD (description of class)
  * <p>
@@ -52,19 +54,38 @@ public class AppBasics {
 		return answer;
 	}
 
-	public static String requestInfoFromUser(String question) {
-		String response;
-		System.out.print(question + " ");
-		response = scanner.nextLine();
-		return response;
-	}
-
 	public static int requestIntFromUser(String question) {
 		String input;
 		int result;
 		System.out.print(question + " ");
 		input = scanner.nextLine();
 		result = Integer.parseInt(input);
+		return result;
+	}
+
+	public static int requestIntFromUser(String question, int min, int max) {
+		String input;
+		int result = 0;
+		boolean isValid = false;
+		while (!isValid) {
+			try {
+				System.out.print(question + " ");
+				input = scanner.nextLine();
+				result = Integer.parseInt(input);
+				if (min != 0 && max != 0) {
+					if (result <= max && result >= min) {
+						isValid = true;
+					} else {
+						throw new NumberNotInRangeException();
+					}
+				}
+				isValid = true;
+			} catch (NumberFormatException e) {
+				System.out.println("Text entered is not a number (digits).");
+			} catch (NumberNotInRangeException e) {
+				System.out.println("The number entered is not in the acceptable range: " + min + "-" + max);
+			}
+		}
 		return result;
 	}
 }
