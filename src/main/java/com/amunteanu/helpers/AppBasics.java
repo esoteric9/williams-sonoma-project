@@ -55,12 +55,7 @@ public class AppBasics {
 	}
 
 	public static int requestIntFromUser(String question) {
-		String input;
-		int result;
-		System.out.print(question + " ");
-		input = scanner.nextLine();
-		result = Integer.parseInt(input);
-		return result;
+		return requestIntFromUser(question, 0, 0);
 	}
 
 	public static int requestIntFromUser(String question, int min, int max) {
@@ -87,5 +82,10 @@ public class AppBasics {
 			}
 		}
 		return result;
+	}
+
+	public static String requestStringFromUser(String question) {
+		System.out.print(question + " ");
+		return scanner.nextLine();
 	}
 }
