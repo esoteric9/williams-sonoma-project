@@ -55,6 +55,11 @@
     <configuration>
      <source>1.7</source>
      <target>1.7</target>
+     <suiteXmlFiles>
+      <suiteXmlFile>test-suites/Default-Chrome</suiteXmlFile>
+      <suiteXmlFile>test-suites/Default-Firefox</suiteXmlFile>
+      <suiteXmlFile>test-suites/Default-IE</suiteXmlFile>
+     </suiteXmlFiles>
     </configuration>
    </plugin>
   </plugins>

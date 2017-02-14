@@ -9,7 +9,7 @@ import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.ie.*;
 import org.testng.annotations.*;
 
-public class BasicTest {
+public class BasicTest extends Core {
 
 	private String baseURL;
 
@@ -40,14 +40,14 @@ public class BasicTest {
 		return this.log;
 	}
 
-	@BeforeMethod(enabled = false)
+	@BeforeMethod(groups = "firefox")
 	public void setupFirefox() {
 		this.driver = new FirefoxDriver();
 		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		this.driver.get(this.baseURL);
 	}
 
-	@BeforeMethod()
+	@BeforeMethod(groups = "chrome")
 	public void setupChrome() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		this.driver = new ChromeDriver();
@@ -55,7 +55,7 @@ public class BasicTest {
 		this.driver.get(this.baseURL);
 	}
 
-	@BeforeMethod(enabled = false)
+	@BeforeMethod(groups = "ie")
 	public void setupIE() {
 		this.driver = new InternetExplorerDriver();
 		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
