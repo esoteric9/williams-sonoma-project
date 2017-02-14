@@ -1,7 +1,6 @@
-# Basic Project
-## Basaic Project Structure
+# Williams-Sonoma Project
 
-*Default Structure for A Basic Project*
+*Practicing with test-ng test suites separated by browser*
 
 _Java 7_
 
