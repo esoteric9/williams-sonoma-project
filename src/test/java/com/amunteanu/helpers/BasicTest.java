@@ -32,10 +32,7 @@ public class BasicTest extends Core {
 		this.baseURL = baseURL;
 	}
 
-	public WebDriver getDriver() {
-		return this.driver;
-	}
-
+	@Override
 	public Logger getLog() {
 		return this.log;
 	}
@@ -47,7 +44,7 @@ public class BasicTest extends Core {
 		this.driver.get(this.baseURL);
 	}
 
-	@BeforeMethod(groups = "chrome")
+	@BeforeMethod(groups = "chrome", enabled = false)
 	public void setupChrome() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		this.driver = new ChromeDriver();
@@ -55,7 +52,7 @@ public class BasicTest extends Core {
 		this.driver.get(this.baseURL);
 	}
 
-	@BeforeMethod(groups = "ie")
+	@BeforeMethod(groups = "ie", enabled = false)
 	public void setupIE() {
 		this.driver = new InternetExplorerDriver();
 		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -64,6 +61,6 @@ public class BasicTest extends Core {
 
 	@AfterMethod
 	public void tearDown() {
-		this.driver.quit();
+		this.getDriver().quit();
 	}
 }
