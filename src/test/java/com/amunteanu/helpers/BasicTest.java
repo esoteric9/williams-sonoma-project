@@ -1,66 +1,85 @@
+/**
+ * File Name: BasicPage.java<br>
+ * Created: Feb 4, 2017
+ */
 package com.amunteanu.helpers;
 
-import java.util.concurrent.*;
+import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.firefox.*;
-import org.openqa.selenium.ie.*;
-import org.testng.annotations.*;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
-public class BasicTest extends Core {
+/**
+ * BasicTest class is the base for all tests<br>
+ * Contains the setup methods for different web browsers that set up each run of the test 
+ * and a tear down method that quits the driver
+ *
+ * @author Munteanu, Alex
+ * @version 1.0.0
+ * @since 1.0
+ */
+public class BasicTest extends Core
+{
 
-	private String baseURL;
-
-	private WebDriver driver;
-
-	private Logger log;
-
-	public BasicTest(String baseURL) {
+	public BasicTest(String baseURL)
+	{
 		super();
-		this.baseURL = baseURL;
-		this.log = Logger.getLogger(BasicTest.class);
-		this.log.info("created BasicTest object through constructor");
+		setBaseURL(baseURL);
+		setLogger(Logger.getLogger(BasicTest.class));
+		getLogger().info("created BasicTest object through constructor");
 	}
 
-	public String getBaseURL() {
-		return this.baseURL;
-	}
-
-	public void setBaseURL(String baseURL) {
-		this.baseURL = baseURL;
-	}
-
-	@Override
-	public Logger getLog() {
-		return this.log;
-	}
-
+	/**
+	 * Purpose: Sets up the Firefox driver and goes to the base URL
+	 */
 	@BeforeMethod(groups = "firefox")
-	public void setupFirefox() {
-		this.driver = new FirefoxDriver();
-		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		this.driver.get(this.baseURL);
+	public void setupFirefox()
+	{
+		WebDriver driver = new FirefoxDriver();
+		setDriver(driver);
+		getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		getDriver().get(getBaseURL());
 	}
 
+	/**
+	 * Purpose: Sets up the Chrome driver and goes to the base URL
+	 */
 	@BeforeMethod(groups = "chrome", enabled = false)
-	public void setupChrome() {
+	public void setupChrome()
+	{
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-		this.driver = new ChromeDriver();
-		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		this.driver.get(this.baseURL);
+		WebDriver driver = new ChromeDriver();
+		setDriver(driver);
+		getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		getDriver().get(getBaseURL());
 	}
 
+	/**
+	 * Purpose: Sets up the Internet Explorer driver and goes to the base URL
+	 */
 	@BeforeMethod(groups = "ie", enabled = false)
-	public void setupIE() {
-		this.driver = new InternetExplorerDriver();
-		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		this.driver.get(this.baseURL);
+	public void setupIE()
+	{
+		System.setProperty("webdriver.ie.driver", "drivers/IEDriverServer.exe");
+		WebDriver driver = new InternetExplorerDriver();
+		setDriver(driver);
+		getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		getDriver().manage().window().maximize();
+		getDriver().manage().deleteAllCookies();
+		getDriver().get(getBaseURL());
 	}
 
+	/**
+	 * Purpose: Quits the driver
+	 */
 	@AfterMethod
-	public void tearDown() {
-		this.getDriver().quit();
+	public void tearDown()
+	{
+		getDriver().quit();
 	}
 }
