@@ -154,3 +154,7 @@ hs_err_pid*
 #TestNG test outputs
 test-output/
 
+screenshots/
+
+logs/
+
