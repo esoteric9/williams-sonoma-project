@@ -1,13 +1,14 @@
 # Williams-Sonoma Project
 
-*Practicing with test-ng test suites separated by browser*
+### Practicing using SauceLabs, TestNg test suites separated by browser and using Actions 
 
-_Java 7_
-
+* Java 8
+* Selenium 2
 * Maven
 * Log4j
 * TestNG
+* SauceLabs
 
 Java Project for SQA Boot Camp Program.
 
-[Alex Munteanu]
+Author: [Alex Munteanu](amunteanu88@gmail.com)
